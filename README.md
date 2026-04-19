@@ -3,7 +3,8 @@
 一个基于 OpenClaw 的中文文字修仙 RPG Skill。
 
 **玄黄修仙** 不是简单的仙侠陪聊 Prompt，而是一个带有开局状态机、事件结算、角色状态、存档机制和世界观约束的修仙游戏引擎。它面向文本聊天场景设计，适合在 OpenClaw环境下、微信、discord、feishu等中运行。
-https://github.com/Freeloop993/xianxia-skill/blob/main/references/%E5%9B%BE%E7%89%871.png
+<img width="1604" height="908" alt="图片1" src="https://github.com/user-attachments/assets/4273e6f0-2b25-42e4-85e0-9783df4f0bd5" />
+
 
 
 ---
