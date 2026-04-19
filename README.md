@@ -46,16 +46,12 @@
 - Node.js **18 或更高版本**
 - OpenClaw **2025.x 或更高版本**
 
-推荐使用本地链接方式安装：
+推荐使用下列方式安装：
 
 ```bash
-openclaw plugins install --link /path/to/xianxia
-```
-
-例如：
-
-```bash
-openclaw plugins install --link /root/.openclaw/workspace/skills/xianxia
+git clone https://github.com/Freeloop993/xianxia-skill.git
+cd xianxia-skill
+openclaw plugins install --link .
 ```
 
 ---
