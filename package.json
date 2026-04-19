@@ -1,0 +1,20 @@
+{
+  "name": "xianxia-lite",
+  "version": "1.2.0",
+  "description": "修仙游戏引擎 · 精简版 · 零外部依赖",
+  "type": "module",
+  "main": "dist/plugin.js",
+  "exports": { ".": "./dist/plugin.js" },
+  "openclaw": {
+    "extensions": ["./dist/plugin.js"]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
