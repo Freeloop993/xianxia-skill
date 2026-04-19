@@ -1,0 +1,55 @@
+{
+  "id": "xianxia-lite",
+  "name": "xianxia-lite",
+  "version": "1.2.0",
+  "entry": "./dist/plugin.js",
+  "description": "修仙游戏引擎精简版。LLM 直接原样输出 reply_text 字段内容（含 markdown 图片）。禁止输出 openclaw_actions 等结构化动作协议块。",
+  "skills": ["."],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "tools": [
+    {
+      "name": "xiuxian_turn",
+      "description": "【开局专用·每步必调】处理开局四步状态机：ask_name → ask_origin → ask_attr → ask_destiny → in_world。\n\n⚠️ 强制规则：\n1. state.step ≠ in_world 时，每步玩家输入必须先调用此工具\n2. 开局流程必须按 references/onboarding.md 走，属性固定五项：根骨/悟性/神魂/机缘/心智，总和100点\n3. 命数卡池以 references/onboarding.md 中的凡品/珍品/绝品为准\n\n【输出规则（严格执行）】\n直接原样输出 reply_text 字段的全部内容，不要修改、不要省略、不要添加任何额外内容。\n图片以 markdown ![alt](url) 格式嵌入在正文中，原样输出即可。\n❌ 禁止输出 openclaw_actions 代码块、JSON 数组、XML 标签等任何结构化动作协议块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "input": { "type": "string", "description": "玩家输入" },
+          "playerKey": { "type": "string", "description": "玩家唯一标识，默认 default" }
+        },
+        "required": ["input"]
+      }
+    },
+    {
+      "name": "xiuxian_state",
+      "description": "【状态查询】返回角色详细状态 + 最近记忆摘要。\n\n【输出规则】\n直接输出 status_block（纯文本 fenced code block）。\n❌ 禁止输出 openclaw_actions 或任何结构化动作协议块。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "playerKey": { "type": "string" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "xiuxian_apply_events",
+      "description": "【入世阶段·结算事件·必调】结算本回合事件，返回 reply / status_block。\n\n⚠️ 强制规则：叙事草稿写完后必须调用此工具结算，不得跳过。\n\n【输出规则（严格执行）】\n直接原样输出 reply_text 字段的全部内容，不要修改、不要省略、不要添加任何额外内容。\n图片以 markdown ![alt](url) 格式嵌入在正文中，原样输出即可。\n❌ 禁止输出 openclaw_actions 代码块、JSON 数组、XML 标签等任何结构化动作协议块",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "description": "事件列表。常用 type：cultivation_gain / spirit_stone_delta / hp_delta / npc_relation_delta / goal_update / idle_start / item_gain 等",
+            "items": { "type": "object", "properties": { "type": { "type": "string" } }, "required": ["type"] }
+          },
+          "rawInput": { "type": "string", "description": "玩家原始输入" },
+          "narrativeText": { "type": "string", "description": "模型叙事草稿" },
+          "playerKey": { "type": "string" }
+        },
+        "required": ["events"]
+      }
+    }
+  ]
+}
